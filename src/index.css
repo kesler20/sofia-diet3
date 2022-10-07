@@ -74,6 +74,10 @@ hr {
   );
 }
 
+.my.selected.feature {
+  background-color: #a4afcc;
+}
+
 @media (width < 750px) {
   .btn-canvas {
     display: flex;
