@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  --presentation-font-family: "Roboto Mono", monospace;
+  --nav-margins: 1rem;
+  --question-format: row;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../src/assets/Logo.png);
+  background-position-x: left;
+  background-position-y: bottom;
+  background-repeat: no-repeat;
+  background-size: 10%;
+}
+
+#root {
+  max-width: 1065px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+}
+
+hr {
+  border: 1px #e3eafc solid;
+  width: 100%;
+  height: 0;
+}
+
+.info-btn {
+  margin: 20px;
+}
+
+.btn {
+  margin: 20px;
+  width: 120px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  z-index: 150;
+  color: white;
+  border: none;
+  background: linear-gradient(
+    90deg,
+    rgba(76, 175, 80, 1) 0%,
+    rgba(49, 220, 255, 1) 100%
+  );
+}
+
+.btn:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(96, 195, 100, 1) 0%,
+    rgba(69, 230, 255, 1) 100%
+  );
+}
+
+@media (width < 750px) {
+  .btn-canvas {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    --presentation-font-family: "Roboto Mono", monospace;
+    --nav-margins: 0.85;
+    --question-format: column;
+  }
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
