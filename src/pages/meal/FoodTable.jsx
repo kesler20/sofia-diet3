@@ -17,10 +17,7 @@ const FoodTable = (props) => {
             />
           </Badge>
           <p>Meal Name?</p>
-          <input
-            name="dietName"
-            type="text"
-          />
+          <input name="dietName" type="text" />
         </Heading>
         <Table>
           <tbody>
@@ -30,24 +27,17 @@ const FoodTable = (props) => {
               <th>Food Protein (g)</th>
               <th>Food Cost (£)</th>
             </tr>
-            <tr onClick={props.selectFood}>
-              <td>Protein Shake</td>
-              <td>{0}</td>
-              <td>{1}</td>
-              <td>{2}</td>
-            </tr>
-            <tr onClick={props.selectFood}>
-              <td>Protein Shake</td>
-              <td>{0}</td>
-              <td>{1}</td>
-              <td>{2}</td>
-            </tr>
-            <tr onClick={props.selectFood}>
-              <td>Protein Shake</td>
-              <td>{0}</td>
-              <td>{1}</td>
-              <td>{2}</td>
-            </tr>
+            {props.foods.map((food, foodId) => {
+              console.log(props.foods)
+              return (
+                <tr key={foodId} onClick={props.selectFood}>
+                  <td>{food.Name[foodId]}</td>
+                  <td>{food["calories (g/amount)"][foodId]}</td>
+                  <td>{food["protein (g/amount)"][foodId]}</td>
+                  <td>{food["Cost (£)"][foodId]}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
       </form>
@@ -55,6 +45,4 @@ const FoodTable = (props) => {
   );
 };
 
-
 export default FoodTable;
-
