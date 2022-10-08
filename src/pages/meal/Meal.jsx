@@ -3,6 +3,20 @@ import React, { useState, useEffect } from "react";
 import CustomizedSlider from "../../components/slider/Slider";
 import ModalButton from "../../components/modal/ModalButton";
 
+const processPromise = (promise, callBack) => {
+  promise
+  .then((res) => {
+    if (res.ok) {
+      res.json().then((res) => {
+        callBack(res);
+      });
+    }
+  })
+  .catch((e) => {
+    console.log(e);
+  });
+}
+
 /**
  * This function converts the data from a pd.DataFrame.to_json() format to the following form
  * [ { col:[values, ...]}, .... ]
@@ -15,23 +29,19 @@ const convert_df_to_objects = (dataFromBackend) => {
   let backendData = JSON.parse(dataFromBackend);
   const columns = Object.keys(backendData);
   const rows = Object.keys(backendData[columns[0]]);
-  let data = [];
-  let colData = [];
-  columns.forEach((col, colID) => {
-    data.push({});
-    rows.forEach((rowID) => {
-      colData.push(backendData[col][rowID]);
+  // data should contain a list of object which with the columns and the row
+  // [{ col : row, col : row },{ col : row, col : row } ]
+  const data = [];
+  rows.forEach((r) => {
+    let row = {};
+    columns.forEach((c) => {
+      row[c] = backendData[c][r];
     });
-    data[colID][col] = colData;
-    colData = [];
+    data.push(row);
   });
+
   return data;
 };
-
-const items = [
-  <CustomizedSlider name={`Select amount of Beef Mince (g)`} />,
-  <CustomizedSlider name={`Select amount of Pasta (g)`} />,
-];
 
 const Meal = () => {
   const [mealName, setMealName] = useState("");
@@ -55,6 +65,30 @@ const Meal = () => {
       });
   }, []);
 
+  const handleCreateMeal = (data) => {
+    data.push({ "name" : mealName })
+    const response = fetch(
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/CREATE`,
+      { method: "POST", body: JSON.stringify(data) }
+    );
+    processPromise(response, console.log)
+  };
+
+  const handleChangeMealName = (e) => {
+    setMealName(e.target.value);
+  };
+
+  const handleChangeAmount = (e, foodId) => {
+    setRecipe(
+      recipe.map((ingredient) => {
+        if (recipe.indexOf(ingredient) === foodId) {
+          ingredient["amount"] = e.target.value;
+        }
+        return ingredient;
+      })
+    );
+  };
+
   const handleSelectFood = (e) => {
     let selected = true;
     e.target.parentNode.classList.toggle("my", selected);
@@ -64,19 +98,34 @@ const Meal = () => {
 
   return (
     <div className="w-full justify-center items-center h-screen">
+      .
       <div className="m-10">
-        <FoodTable selectFood={handleSelectFood} foods={recipe}/>
+        <FoodTable
+          selectFood={handleSelectFood}
+          foods={recipe}
+          changeMealName={handleChangeMealName}
+        />
       </div>
       <div className="w-full flex justify-center items-center">
         <ModalButton
-          items={items}
+          items={recipe.map((ingredient, id) => {
+            return (
+              <CustomizedSlider
+                key={id}
+                name={`Amount of ${ingredient["Name"]} (g)`}
+                onChangeValue={handleChangeAmount}
+                id={id}
+              />
+            );
+          })}
           buttonTitle={"Create Meal"}
-          modalButtonTitle={"Create Meal"}
+          modalButtonTitle={`Create ${mealName}`}
+          data={recipe}
+          onCreateMeal={handleCreateMeal}
         />
       </div>
     </div>
   );
-  
 };
 
 export default Meal;

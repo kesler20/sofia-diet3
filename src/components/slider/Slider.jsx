@@ -60,14 +60,20 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
-export default function CustomizedSlider({ name }) {
+export default function CustomizedSlider(props) {
+
+  const onSliderChange = (e) => {
+    props.onChangeValue(e, props.id)
+  }
+  
   return (
     <Box sx={{ width: 320 }}>
-      <Typography gutterBottom>{name}</Typography>
+    <Typography gutterBottom>{props.name}</Typography>
       <PrettoSlider
         valueLabelDisplay="auto"
         aria-label="pretto slider"
         defaultValue={20}
+        onChange={onSliderChange}
       />
     </Box>
   );

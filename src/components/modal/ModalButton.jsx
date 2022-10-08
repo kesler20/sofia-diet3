@@ -23,6 +23,8 @@ export default function ModalButton(props) {
           buttonTitle={props.modalButtonTitle}
           items={props.items}
           onClose={handleClose}
+          data={props.data}
+          onCreateMeal={props.onCreateMeal}
         />
       </Modal>
     </div>
