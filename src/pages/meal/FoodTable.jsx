@@ -4,6 +4,11 @@ import { Heading } from "../../components/heading/Heading";
 import { Badge } from "../../components/heading/Badge";
 
 const FoodTable = (props) => {
+
+  const handleSelectFood = (e, foodId) => {
+    props.selectFood(e,foodId)
+  }
+
   return (
     <div className="table__container">
       <form>
@@ -17,7 +22,7 @@ const FoodTable = (props) => {
             />
           </Badge>
           <p>Meal Name?</p>
-          <input name="dietName" type="text" onChange={props.changeMealName}/>
+          <input name="dietName" type="text" onChange={props.changeMealName} required/>
         </Heading>
         <Table>
           <tbody>
@@ -29,7 +34,7 @@ const FoodTable = (props) => {
             </tr>
             {props.foods.map((food, foodId) => {
               return (
-                <tr key={foodId} onClick={props.selectFood}>
+                <tr key={foodId} onClick={(e) => handleSelectFood(e,foodId)}>
                   <td>{food.name}</td>
                   <td>{food.calories}</td>
                   <td>{food.protein}</td>
