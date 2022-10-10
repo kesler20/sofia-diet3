@@ -8,7 +8,7 @@ def initialize_amplify_application(credentials_location=None):
     credentials_location = r"C:\Users\Uchek\OneDrive\Documents" if credentials_location == None else credentials_location
 
     # where <category> is one of: notifications, api, auth, custom, storage, analytics, function, geo, hosting, interactions, predictions, xr
-    categories = ["auth", "storage", "storage", "hosting"]
+    categories = ["hosting"]
     os.system(
         r"start excel {}/new_user_credentials.csv".format(credentials_location))
     os.system("amplify init")

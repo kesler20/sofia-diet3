@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-sofiadiet3-dev-00157-authRole",
+      "UnauthRoleArn": "arn:aws:iam::565226596788:role/amplify-sofiadiet3-dev-00157-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::565226596788:role/amplify-sofiadiet3-dev-00157-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-sofiadiet3-dev-00157-deployment",
+      "UnauthRoleName": "amplify-sofiadiet3-dev-00157-unauthRole",
+      "StackName": "amplify-sofiadiet3-dev-00157",
+      "StackId": "arn:aws:cloudformation:eu-west-2:565226596788:stack/amplify-sofiadiet3-dev-00157/8b794e80-48ef-11ed-a8cf-025141d84c68",
+      "AmplifyAppId": "d2ibbi13pirx7b"
+    }
+  }
+}
