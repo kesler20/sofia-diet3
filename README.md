@@ -19,6 +19,8 @@ class Class10 {
 }
 ```
 
+Application is deployed [here](http://sofiadiet3-20221011000506-hostingbucket-dev.s3-website.eu-west-2.amazonaws.com) 
+
 ### Todos
 
 - [ ] make a meal object which you can update as a single source of truth for name and recipe
