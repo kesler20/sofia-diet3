@@ -54,16 +54,9 @@
         "CorsConfiguration": {
           "CorsRules": [
             {
-              "AllowedHeaders": [
-                "Authorization",
-                "Content-Length"
-              ],
-              "AllowedMethods": [
-                "GET"
-              ],
-              "AllowedOrigins": [
-                "*"
-              ],
+              "AllowedHeaders": ["Authorization", "Content-Length"],
+              "AllowedMethods": ["GET"],
+              "AllowedOrigins": ["*"],
               "MaxAge": 3000
             }
           ]
@@ -85,10 +78,7 @@
     },
     "WebsiteURL": {
       "Value": {
-        "Fn::GetAtt": [
-          "S3Bucket",
-          "WebsiteURL"
-        ]
+        "Fn::GetAtt": ["S3Bucket", "WebsiteURL"]
       },
       "Description": "URL for website hosted on S3"
     },
@@ -99,10 +89,7 @@
           [
             "https://",
             {
-              "Fn::GetAtt": [
-                "S3Bucket",
-                "DomainName"
-              ]
+              "Fn::GetAtt": ["S3Bucket", "DomainName"]
             }
           ]
         ]

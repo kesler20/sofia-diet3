@@ -10,7 +10,7 @@ const Meal = () => {
 
   useEffect(() => {
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/READ`
+      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/food/READ`
     );
 
     response
@@ -34,7 +34,7 @@ const Meal = () => {
     });
     console.log(dataToPush);
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/CREATE`,
+      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/meal/CREATE`,
       { method: "POST", body: JSON.stringify(dataToPush) }
     );
     processPromise(response, console.log);

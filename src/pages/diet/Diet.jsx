@@ -12,7 +12,7 @@ const Diet = () => {
 
   useEffect(() => {
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/READ`
+      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/meal/READ`
     );
 
     response
@@ -36,7 +36,7 @@ const Diet = () => {
     });
     console.log(dataToPush);
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/diet/CREATE`,
+      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/diet/CREATE`,
       { method: "POST", body: JSON.stringify(dataToPush) }
     );
     processPromise(response, console.log);
@@ -121,7 +121,7 @@ const Diet = () => {
           onCreate={handleCreateDiet}
         />
         <a
-          href={`${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/diet/READ`}
+          href={`${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/diet/READ`}
           className="btn m-3"
         >
           Get Diet
