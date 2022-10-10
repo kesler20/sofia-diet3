@@ -3,7 +3,6 @@ import os
 import time
 import json
 
-
 def initialize_amplify_application(credentials_location=None):
     credentials_location = r"C:\Users\Uchek\OneDrive\Documents" if credentials_location == None else credentials_location
 
@@ -152,8 +151,7 @@ def push_to_github(target_directory):
     os.system("git pull")
     os.system("git add . ")
     os.system('git commit -m "make it better"')
-    os.system("git push ")
-    print("------------ publishing the application to amplify ✅")
+    os.system("git push --set-upstream origin dev")
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
