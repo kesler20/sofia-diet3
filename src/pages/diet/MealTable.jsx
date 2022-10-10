@@ -1,7 +1,11 @@
-import { Table } from "../../components/table/Table";
 import React from "react";
+import { Table } from "../../components/table/Table";
 
-const MealTable = () => {
+const MealTable = (props) => {
+  const handleSelectMeal = (e, mealId) => {
+    props.selectMeal(e, mealId);
+  };
+
   return (
     <div className="table__container">
       <form>
@@ -13,24 +17,16 @@ const MealTable = () => {
               <th>Meal Protein (g)</th>
               <th>Meal Cost (£)</th>
             </tr>
-            <tr>
-              <td>Protein Shake</td>
-              <td>{0}</td>
-              <td>{1}</td>
-              <td>{2}</td>
-            </tr>
-            <tr>
-              <td>Protein Shake</td>
-              <td>{0}</td>
-              <td>{1}</td>
-              <td>{2}</td>
-            </tr>
-            <tr>
-              <td>Protein Shake</td>
-              <td>{0}</td>
-              <td>{1}</td>
-              <td>{2}</td>
-            </tr>
+            {props.meals.map((meal, mealId) => {
+              return (
+                <tr key={mealId} onClick={(e) => handleSelectMeal(e, mealId)}>
+                  <td>{meal.name}</td>
+                  <td>{meal.calories}</td>
+                  <td>{meal.protein}</td>
+                  <td>{meal.cost}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
       </form>
@@ -39,4 +35,3 @@ const MealTable = () => {
 };
 
 export default MealTable;
-

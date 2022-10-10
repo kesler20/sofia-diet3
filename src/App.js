@@ -13,8 +13,8 @@ const App = () => {
         <Navbar />
         <div class="w-full flex justify-center items-center">
           <Routes>
-            <Route path="/" element={ <Food />} />
-            <Route path="/food" element={ <Food />} />
+            <Route path="/" element={<Food />} />
+            <Route path="/food" element={<Food />} />
             <Route path="/meal" element={<Meal />} />
             <Route path="/diet" element={<Diet />} />
           </Routes>

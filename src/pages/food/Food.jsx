@@ -1,7 +1,6 @@
 import "./Food.css";
 import React, { useState } from "react";
 
-
 const Food = () => {
   const [food, setFood] = useState({
     name: "default",
@@ -11,7 +10,6 @@ const Food = () => {
   });
 
   const uploadData = async (bodyData) => {
-  
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/CREATE`,
       {
@@ -49,7 +47,10 @@ const Food = () => {
     <div class="card__outer">
       <div className="card">
         <div className="card__content">
-          <form className="card__content__form">
+          <form
+            className="card__content__form"
+            onSubmit={(e) => handleSubmit(e)}
+          >
             <div className="card__content__header">
               <div className="card__content__badge">
                 <img
@@ -117,7 +118,7 @@ const Food = () => {
               required
               onChange={(e) => handleCreateFood(e, "cost")}
             />
-            <button className="btn" onClick={(e) => handleSubmit(e)}>
+            <button className="btn">
               Create
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -144,11 +145,10 @@ const Food = () => {
             </button>
           </form>
         </div>
-        <div/>
+        <div />
       </div>
     </div>
   );
-  
 };
 
 export default Food;

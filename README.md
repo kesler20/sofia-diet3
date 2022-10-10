@@ -1,6 +1,6 @@
 ### Design
 
-```mermaid  
+```mermaid
 classDiagram
 Class01 <|-- AveryLongClass : Cool
 <<Interface>> Class01
@@ -18,6 +18,7 @@ class Class10 {
   size()
 }
 ```
+
 ### Todos
 
 - [ ] make a meal object which you can update as a single source of truth for name and recipe

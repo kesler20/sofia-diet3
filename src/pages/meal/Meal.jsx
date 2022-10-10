@@ -27,18 +27,23 @@ const Meal = () => {
   }, []);
 
   const handleCreateMeal = (data) => {
-    console.log(data);
+    let dataToPush = data;
+    dataToPush.recipe = data.recipe.map((food) => {
+      food.amount = food.amount === undefined ? 100 : food.amount;
+      return food;
+    });
+    console.log(dataToPush);
     const response = fetch(
       `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/CREATE`,
-      { method: "POST", body: JSON.stringify(data) }
+      { method: "POST", body: JSON.stringify(dataToPush) }
     );
     processPromise(response, console.log);
   };
 
   const handleChangeAmount = (e, foodId) => {
-    setFoodsFromDb(
-      FoodsFromDb.map((ingredient) => {
-        if (FoodsFromDb.indexOf(ingredient) === foodId) {
+    setRecipe(
+      recipe.map((ingredient) => {
+        if (recipe.indexOf(ingredient) === foodId) {
           ingredient["amount"] = e.target.value;
         }
         return ingredient;
@@ -60,7 +65,7 @@ const Meal = () => {
     e.target.parentNode.classList.toggle("feature", selected);
     for (let food of FoodsFromDb) {
       if (FoodsFromDb.indexOf(food) === id) {
-        if (recipe.filter((ingredient) => ingredient === food).length == 0) {
+        if (recipe.filter((ingredient) => ingredient === food).length === 0) {
           recipe.push(food);
           setRecipe(
             recipe.map((ingredient) => {
@@ -87,10 +92,10 @@ const Meal = () => {
         <ModalButton
           items={recipe.map((ingredient, id) => {
             if (id === 0) {
-              console.log(id)
+              console.log(id);
               return (
                 <div className="flex flex-col justify-center items-center">
-                    <h1 className="m-5 font-bold">{mealName.toUpperCase()}</h1>
+                  <h1 className="m-5 font-bold">{mealName.toUpperCase()}</h1>
                   <CustomizedSlider
                     key={id}
                     name={`Amount of ${ingredient.name} (g)`}
@@ -113,7 +118,7 @@ const Meal = () => {
           buttonTitle={"Create Meal"}
           modalButtonTitle={`Create ${mealName}`}
           data={{ mealName, recipe }} // pass in the meal object
-          onCreateMeal={handleCreateMeal}
+          onCreate={handleCreateMeal}
         />
       </div>
     </div>

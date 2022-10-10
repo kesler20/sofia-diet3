@@ -9,7 +9,7 @@ export default function ModalButton(props) {
     if (props.modalButtonTitle === "Create " || props.items.length === 0) {
       alert("Your Meal is incomplete, add a name and a recipe");
     } else {
-      console.log(props.items)
+      console.log(props.items);
       setOpen(true);
     }
   };
@@ -32,7 +32,7 @@ export default function ModalButton(props) {
           items={props.items}
           onClose={handleClose}
           data={props.data}
-          onCreateMeal={props.onCreateMeal}
+          onCreate={props.onCreate}
         />
       </Modal>
     </div>
