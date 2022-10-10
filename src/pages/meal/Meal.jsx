@@ -4,7 +4,8 @@ import CustomizedSlider from "../../components/slider/Slider";
 import ModalButton from "../../components/modal/ModalButton";
 
 const Meal = () => {
-  const [meal, setMeal] = useState({ name: "", recipe: [] });
+  const [recipe, setRecipe] = useState([]);
+  const [mealName, setMealName] = useState("");
   const [FoodsFromDb, setFoodsFromDb] = useState([]);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Meal = () => {
   }, []);
 
   const handleCreateMeal = (data) => {
-    console.log(data)
+    console.log(data);
     const response = fetch(
       `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/CREATE`,
       { method: "POST", body: JSON.stringify(data) }
@@ -34,12 +35,6 @@ const Meal = () => {
     processPromise(response, console.log);
   };
 
-  const handleChangeMealName = (e) => {
-    const newMeal = meal
-    newMeal.name = e.target.value
-    setMeal(newMeal)
-  };
-  
   const handleChangeAmount = (e, foodId) => {
     setFoodsFromDb(
       FoodsFromDb.map((ingredient) => {
@@ -52,27 +47,40 @@ const Meal = () => {
   };
 
   const handleSelectFood = (e, id) => {
-    console.log(meal)
+    console.log(recipe)
     let selected = true;
+    Array.from(e.target.parentNode.classList).forEach((classItem) => {
+      if (classItem === "selected") {
+        selected = false;
+      }
+    });
+
     e.target.parentNode.classList.toggle("my", selected);
     e.target.parentNode.classList.toggle("selected", selected);
     e.target.parentNode.classList.toggle("feature", selected);
-    const newMeal = meal;
     for (let food of FoodsFromDb) {
       if (FoodsFromDb.indexOf(food) === id) {
-        newMeal.recipe.push(food);
+        if (recipe.filter((ingredient) => ingredient === food).length == 0) {
+          recipe.push(food);
+          setRecipe(
+            recipe.map((ingredient) => {
+              return ingredient;
+            })
+          );
+        } else {
+          setRecipe(recipe.filter((ingredient) => ingredient !== food));
+        }
       }
     }
-    setMeal(newMeal);
   };
-  
+
   return (
     <div className="w-full justify-center items-center h-screen">
       <div className="m-10">
         <FoodTable
           selectFood={handleSelectFood}
           foods={FoodsFromDb}
-          changeMealName={handleChangeMealName}
+          changeMealName={(e) => setMealName(e.target.value)}
         />
       </div>
       <div className="w-full flex justify-center items-center">
@@ -88,7 +96,7 @@ const Meal = () => {
             );
           })}
           buttonTitle={"Create Meal"}
-          modalButtonTitle={`Create ${meal.name}`}
+          modalButtonTitle={`Create ${mealName}`}
           data={FoodsFromDb}
           onCreateMeal={handleCreateMeal}
         />

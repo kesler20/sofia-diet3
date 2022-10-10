@@ -1,39 +1,25 @@
-This is a react template which uses tailwind and aws
-font awesome can be used for icons as iti s a cdn and it offers icons brands
-various packages have already been installed and configured
-the python file enables continuous depoloytment
+### Design
 
-Amplify documentation https://docs.amplify.aws/lib/q/platform/js/
-
-make sure that you are on the right path, do not run the commands from src
-start by using amplify init if the user that you want to use already exists
-us amplify pull if the app that you want to use already exist
-use amplify configure if the either the app nor the uiser that you want to use already exist
-
-do not use ampolify puyl before pushing the first commiut, this will remove all the current changes thyat you made
-to the amplify application
-
-to run the workflow use which will:
-
-- run tests
-- format code
-- pull the latest changes
-- push code to github
-- publish the application
-  by running:
-
-```bash
-python workflow.py
+```mermaid  
+classDiagram
+Class01 <|-- AveryLongClass : Cool
+<<Interface>> Class01
+Class09 --> C2 : Where am I?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+class Class10 {
+  <<service>>
+  int id
+  size()
+}
 ```
+### Todos
 
-before ensure that prettier has being installed by running
-
-```bash
-npm install -g prettier
-```
-
-ensure that jest is installed by running
-
-```bash
-npm install --save-dev jest
-```
+- [ ] make a meal object which you can update as a single source of truth for name and recipe
+- [ ] make it harder for the meal to be created with no name (use required on the input field?)
+- [ ] make the select feature so that not all the foods that are created are selected

@@ -3,11 +3,16 @@ import Modal from "@mui/material/Modal";
 import CustomModals from "./CustomModal";
 
 export default function ModalButton(props) {
-
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
+  const handleOpen = () => {
+    // if (props.modalButtonTitle === "Create ") {
+    //   // alert("Your Meal Needs a Name");
+    // } else {
+      setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
   return (
     <div>
       <button className="btn" onClick={handleOpen}>

@@ -1,9 +1,9 @@
 import React from "react";
 
 const CustomModals = (props) => {
-
+  
   const onCreateButton = () => {
-    props.onCreateMeal(props.data);
+    props.onCreateMeal(props.data)
     props.onClose();
   };
 

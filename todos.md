@@ -1,3 +1,0 @@
-- [ ] make a meal object which you can update as a single source of truth for name and repice
-- [ ] make it harder for the meal to be created with no name (use required on the inpuit field?)
-- [ ] make the select feature so that not all the foods that are created are selected

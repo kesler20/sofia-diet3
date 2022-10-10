@@ -155,7 +155,6 @@ def push_to_github(target_directory):
     os.system("git push ")
     print("------------ publishing the application to amplify ✅")
 
-
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == "publish":
@@ -163,7 +162,7 @@ if __name__ == "__main__":
         if sys.argv[1] == "sync":
             sync_env_variable_to_aws_exports()
         if sys.argv[1] == "init amplify":
-            initialize_amplify_application()
+            initialize_amplify_application()            
 
     else:
         push_to_github(os.getcwd())
