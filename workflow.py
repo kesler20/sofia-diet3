@@ -152,7 +152,6 @@ def push_to_github(target_directory):
     os.system("git add . ")
     os.system('git commit -m "make it better"')
     os.system("git push --set-upstream origin dev")
-    print("------------ publishing the application to amplify ✅")
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
