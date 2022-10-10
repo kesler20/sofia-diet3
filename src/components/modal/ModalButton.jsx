@@ -6,10 +6,12 @@ export default function ModalButton(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    // if (props.modalButtonTitle === "Create ") {
-    //   // alert("Your Meal Needs a Name");
-    // } else {
+    if (props.modalButtonTitle === "Create " || props.items.length === 0) {
+      alert("Your Meal is incomplete, add a name and a recipe");
+    } else {
+      console.log(props.items)
       setOpen(true);
+    }
   };
 
   const handleClose = () => setOpen(false);

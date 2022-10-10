@@ -85,7 +85,7 @@ const Meal = () => {
       </div>
       <div className="w-full flex justify-center items-center">
         <ModalButton
-          items={FoodsFromDb.map((ingredient, id) => {
+          items={recipe.map((ingredient, id) => {
             return (
               <CustomizedSlider
                 key={id}
