@@ -23,7 +23,8 @@ ValueLabelComponent.propTypes = {
 
 const PrettoSlider = styled(Slider)({
   color: '#52af77',
-  height: 8,
+  width: 300,
+  height: 12,
   '& .MuiSlider-track': {
     border: 'none',
   },
@@ -67,7 +68,7 @@ export default function CustomizedSlider(props) {
   }
   
   return (
-    <Box sx={{ width: 320 }}>
+    <Box sx={{ width: 320, marginLeft: 1 }}>
     <Typography gutterBottom>{props.name}</Typography>
       <PrettoSlider
         valueLabelDisplay="auto"

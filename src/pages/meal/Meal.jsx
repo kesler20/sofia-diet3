@@ -47,7 +47,7 @@ const Meal = () => {
   };
 
   const handleSelectFood = (e, id) => {
-    console.log(recipe)
+    console.log(recipe);
     let selected = true;
     Array.from(e.target.parentNode.classList).forEach((classItem) => {
       if (classItem === "selected") {
@@ -86,18 +86,33 @@ const Meal = () => {
       <div className="w-full flex justify-center items-center">
         <ModalButton
           items={recipe.map((ingredient, id) => {
-            return (
-              <CustomizedSlider
-                key={id}
-                name={`Amount of ${ingredient.name} (g)`}
-                onChangeValue={handleChangeAmount}
-                id={id}
-              />
-            );
+            if (id === 0) {
+              console.log(id)
+              return (
+                <div className="flex flex-col justify-center items-center">
+                    <h1 className="m-5 font-bold">{mealName.toUpperCase()}</h1>
+                  <CustomizedSlider
+                    key={id}
+                    name={`Amount of ${ingredient.name} (g)`}
+                    onChangeValue={handleChangeAmount}
+                    id={id}
+                  />
+                </div>
+              );
+            } else {
+              return (
+                <CustomizedSlider
+                  key={id}
+                  name={`Amount of ${ingredient.name} (g)`}
+                  onChangeValue={handleChangeAmount}
+                  id={id}
+                />
+              );
+            }
           })}
           buttonTitle={"Create Meal"}
           modalButtonTitle={`Create ${mealName}`}
-          data={FoodsFromDb}
+          data={{ mealName, recipe }} // pass in the meal object
           onCreateMeal={handleCreateMeal}
         />
       </div>
