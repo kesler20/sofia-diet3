@@ -14,7 +14,7 @@
   border-radius: 15px;
   background-color: rgb(144, 80, 204);
   box-shadow: 20px 20px 20px rgb(155, 155, 155);
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(25deg);
 }
