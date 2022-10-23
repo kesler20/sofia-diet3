@@ -1,5 +1,7 @@
 ### Design
 
+The final version of the application is hosted [here](http://sofiadiet3-20221011000506-hostingbucket-dev.s3-website.eu-west-2.amazonaws.com/diet)
+
 ```mermaid
 classDiagram
 Class01 <|-- AveryLongClass : Cool
