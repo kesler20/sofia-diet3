@@ -3,7 +3,6 @@ import { Table } from "../../components/table/Table";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const MealTable = (props) => {
-  
   const handleSelectMeal = (e, mealId) => {
     props.selectMeal(e, mealId);
   };
@@ -28,7 +27,9 @@ const MealTable = (props) => {
                   <td>{meal.protein}</td>
                   <td>{meal.cost}</td>
                   <td>
-                    <RiDeleteBin6Line onClick={() => props.handleDeleteMeal(mealId)}/>
+                    <RiDeleteBin6Line
+                      onClick={() => props.handleDeleteMeal(mealId)}
+                    />
                   </td>
                 </tr>
               );

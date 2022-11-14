@@ -91,7 +91,9 @@ const Meal = () => {
 
   const handleDeleteFood = (foodID) => {
     if (foodID == rowToDelete) {
-      setFoodsFromDb(FoodsFromDb.filter((food) => FoodsFromDb.indexOf(food) !== foodID));
+      setFoodsFromDb(
+        FoodsFromDb.filter((food) => FoodsFromDb.indexOf(food) !== foodID)
+      );
       deleteFood(foodID);
     } else {
       alert("if you click again the food will be deleted!!");

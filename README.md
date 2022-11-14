@@ -21,7 +21,7 @@ class Class10 {
 }
 ```
 
-Application is deployed [here](http://sofiadiet3-20221011000506-hostingbucket-dev.s3-website.eu-west-2.amazonaws.com) 
+Application is deployed [here](http://sofiadiet3-20221011000506-hostingbucket-dev.s3-website.eu-west-2.amazonaws.com)
 
 ### Todos
 
