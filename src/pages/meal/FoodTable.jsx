@@ -2,6 +2,7 @@ import React from "react";
 import { Table } from "../../components/table/Table";
 import { Heading } from "../../components/heading/Heading";
 import { Badge } from "../../components/heading/Badge";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const FoodTable = (props) => {
   const handleSelectFood = (e, foodId) => {
@@ -35,6 +36,7 @@ const FoodTable = (props) => {
               <th>Food Calories (Kcal)</th>
               <th>Food Protein (g)</th>
               <th>Food Cost (£)</th>
+              <th>Delete</th>
             </tr>
             {props.foods.map((food, foodId) => {
               return (
@@ -42,7 +44,12 @@ const FoodTable = (props) => {
                   <td>{food.name}</td>
                   <td>{food.calories}</td>
                   <td>{food.protein}</td>
-                  <td>{food.cost}</td>
+                  <td>{food.cost}</td>{" "}
+                  <td>
+                    <RiDeleteBin6Line
+                      onClick={() => props.handleDeleteFood(foodId)}
+                    />
+                  </td>
                 </tr>
               );
             })}

@@ -3,16 +3,16 @@ import CustomizedSlider from "../../components/slider/Slider";
 import ModalButton from "../../components/modal/ModalButton";
 import MealTable from "./MealTable";
 import BasicSelect from "../../components/select/Select";
-import CustomizedSwitches from "../../components/switch/Switch";
 
 const Diet = () => {
   const [meals, setMeals] = useState([]);
   const [weekDay, setWeekDay] = useState("");
   const [mealsFromDB, setMealsFromDB] = useState([]);
+  const [rowToDelete, setRowToDelete] = useState([]);
 
   useEffect(() => {
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/meal/READ`
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/READ`
     );
 
     response
@@ -36,7 +36,7 @@ const Diet = () => {
     });
     console.log(dataToPush);
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/diet/CREATE`,
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/diet/CREATE`,
       { method: "POST", body: JSON.stringify(dataToPush) }
     );
     processPromise(response, console.log);
@@ -81,10 +81,34 @@ const Diet = () => {
     }
   };
 
+  const deleteMeal = (mealID) => {
+    const response = fetch(
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/DELETE`,
+      { method: "DELETE", body: JSON.stringify(mealID) }
+    );
+    processPromise(response, console.log);
+  };
+
+  const handleDeleteMeal = (mealID) => {
+    if (mealID == rowToDelete) {
+      setMealsFromDB(
+        mealsFromDB.filter((meal) => mealsFromDB.indexOf(meal) !== mealID)
+      );
+      deleteMeal(mealID);
+    } else {
+      alert("if you click again the meal will be deleted!!");
+      setRowToDelete(mealID);
+    }
+  };
+
   return (
     <div className="w-full justify-center items-center h-screen">
       <div className="m-10">
-        <MealTable selectMeal={handleSelectMeal} meals={mealsFromDB} />
+        <MealTable
+          selectMeal={handleSelectMeal}
+          meals={mealsFromDB}
+          handleDeleteMeal={handleDeleteMeal}
+        />
       </div>
       <div className="w-full flex justify-center items-center">
         <ModalButton
@@ -121,7 +145,7 @@ const Diet = () => {
           onCreate={handleCreateDiet}
         />
         <a
-          href={`${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/diet/READ`}
+          href={`${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/diet/READ`}
           className="btn m-3"
         >
           Get Diet

@@ -7,10 +7,11 @@ const Meal = () => {
   const [recipe, setRecipe] = useState([]);
   const [mealName, setMealName] = useState("");
   const [FoodsFromDb, setFoodsFromDb] = useState([]);
+  const [rowToDelete, setRowToDelete] = useState([]);
 
   useEffect(() => {
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/food/READ`
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/READ`
     );
 
     response
@@ -34,7 +35,7 @@ const Meal = () => {
     });
     console.log(dataToPush);
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/meal/CREATE`,
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/CREATE`,
       { method: "POST", body: JSON.stringify(dataToPush) }
     );
     processPromise(response, console.log);
@@ -53,6 +54,7 @@ const Meal = () => {
 
   const handleSelectFood = (e, id) => {
     console.log(recipe);
+    console.log(e, id);
     let selected = true;
     Array.from(e.target.parentNode.classList).forEach((classItem) => {
       if (classItem === "selected") {
@@ -79,6 +81,24 @@ const Meal = () => {
     }
   };
 
+  const deleteFood = (foodID) => {
+    const response = fetch(
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/DELETE`,
+      { method: "DELETE", body: JSON.stringify(foodID) }
+    );
+    processPromise(response, console.log);
+  };
+
+  const handleDeleteFood = (foodID) => {
+    if (foodID == rowToDelete) {
+      setFoodsFromDb(FoodsFromDb.filter((food) => FoodsFromDb.indexOf(food) !== foodID));
+      deleteFood(foodID);
+    } else {
+      alert("if you click again the food will be deleted!!");
+      setRowToDelete(foodID);
+    }
+  };
+
   return (
     <div className="w-full justify-center items-center h-screen">
       <div className="m-10">
@@ -86,6 +106,7 @@ const Meal = () => {
           selectFood={handleSelectFood}
           foods={FoodsFromDb}
           changeMealName={(e) => setMealName(e.target.value)}
+          handleDeleteFood={handleDeleteFood}
         />
       </div>
       <div className="w-full flex justify-center items-center">

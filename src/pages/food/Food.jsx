@@ -11,7 +11,7 @@ const Food = () => {
 
   const uploadData = async (bodyData) => {
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/food/CREATE`,
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/CREATE`,
       {
         method: "POST",
         body: bodyData,
@@ -97,7 +97,7 @@ const Food = () => {
             </div>
             <input
               type="number"
-              step="0.1"
+              step="1"
               required
               onChange={(e) => handleCreateFood(e, "calories")}
             />
