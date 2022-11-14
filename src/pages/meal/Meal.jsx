@@ -137,7 +137,8 @@ const Meal = () => {
             }
           })}
           buttonTitle={"Create Meal"}
-          modalButtonTitle={`Create ${mealName}`}
+          modalTitle={`name ${mealName}`}
+          modalButtonTitle={`Create Meal`}
           data={{ mealName, recipe }} // pass in the meal object
           onCreate={handleCreateMeal}
         />

@@ -74,6 +74,8 @@ export default function CustomizedSlider(props) {
         aria-label="pretto slider"
         defaultValue={20}
         onChange={onSliderChange}
+        min={0}
+        max={1000}
       />
     </Box>
   );
