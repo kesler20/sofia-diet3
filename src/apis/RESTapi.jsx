@@ -89,7 +89,7 @@ export default class RESTfulApiInterface {
   /**
    * The constructor does not take any arguments however the default parameters are
    * ```txt
-   * baseUrl : `${process.env.REACT_APP_BACKEND_URL_DEV}`
+   * baseUrl : `${process.env.REACT_APP_BACKEND_URL_PROD}`
    * jwtToken : "Bearer " + localStorage.getItem("jwtToken")
    * extraParams : { headers: {} }
    * ```
@@ -104,7 +104,7 @@ export default class RESTfulApiInterface {
   constructor() {
     // run any api configuration logic
     this.configure();
-    this.baseUrl = `${process.env.REACT_APP_BACKEND_URL_DEV}`;
+    this.baseUrl = `${process.env.REACT_APP_BACKEND_URL_PROD}`;
     this.jwtToken = "Bearer " + localStorage.getItem("jwtToken");
     this.extraParams = {};
     this.apiName = `${process.env.REACT_APP_AWS_API_NAME}`;
