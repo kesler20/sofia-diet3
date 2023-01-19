@@ -1,6 +1,6 @@
 ### Design
 
-The final version of the application is hosted [here](http://sofiadiet3-20221011000506-hostingbucket-dev.s3-website.eu-west-2.amazonaws.com/diet)
+The final version of the application is hosted [here](https://master.d2a6vne2z4dg1a.amplifyapp.com)
 
 ```mermaid
 classDiagram
@@ -21,7 +21,7 @@ class Class10 {
 }
 ```
 
-Application is deployed [here](http://sofiadiet3-20221011000506-hostingbucket-dev.s3-website.eu-west-2.amazonaws.com)
+Application is deployed [here](https://master.d2a6vne2z4dg1a.amplifyapp.com/)
 
 ### Todos
 
