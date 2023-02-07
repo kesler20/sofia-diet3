@@ -204,7 +204,7 @@ class GithubRepository:
     def close_issue(self, issueID: int) -> None:
         os.system(f"gh issue close {issueID}")
 
-    def integrate_new_branch(self) -> None:
+    def integrate_new_branch(self, trunk_branch_name: str =None) -> None:
         """integrate_new_branch
 
         Note
@@ -221,10 +221,12 @@ class GithubRepository:
         8. delete the branch locally
         9. delete the branch origin
         """
+        if trunk_branch_name is None:
+            trunk_branch_name = "master"
         self.workflow_ui.pp("checking out to master to pull the latest changed ⏬")
-        os.system("git checkout master")
+        os.system(f"git checkout {trunk_branch_name}")
         os.system("git branch")
-        os.system("git pull origin master")
+        os.system(f"git pull origin {trunk_branch_name}")
         self.workflow_ui.pp("checking out to new-feature to pull the latest changed ⏬⏬")
         self.workflow_ui.pp("")
         os.system("git checkout new-feature")
@@ -233,16 +235,16 @@ class GithubRepository:
         os.system("git add .")
         os.system('git commit -m "ready to merge"')
         os.system('git push --set-upstream origin new-feature')
-        self.workflow_ui.pp("checking out to master to merge the new changes 👯‍♂️⭐💱")
+        self.workflow_ui.pp(f"checking out to {trunk_branch_name} to merge the new changes 👯‍♂️⭐💱")
         self.workflow_ui.pp("")
-        os.system("git checkout master")
+        os.system(f"git checkout {trunk_branch_name}")
         os.system("git branch")
         os.system("git merge new-feature")
-        self.workflow_ui.pp("pushing the master with the new feature ⤴️🤩✨")
+        self.workflow_ui.pp(f"pushing the {trunk_branch_name} with the new feature ⤴️🤩✨")
         self.workflow_ui.pp("")
         os.system("git add .")
         os.system('git commit -m "merged new-feature"')
-        os.system("git push origin master")
+        os.system(f"git push origin {trunk_branch_name}")
         self.workflow_ui.pp("deleting the new-feature branch locally and on gh🎯🗑️")
         self.workflow_ui.pp("")
         os.system("git branch -d new-feature")
@@ -256,6 +258,11 @@ class GithubRepository:
             todo = todo.replace("\n", "")
             self.create_issue(todo)
 
+    def read_all_issues_on_github(self):
+        #TODO:
+        self.workflow_ui.pp("reading all the issues that are still open 📑")
+        os.system("gh repo list")
+   
     def read_todos_from_readme(self):
         readme = File(Path("README.md"))
         uncompleted_todos = readme.read_line_by_condition(lambda line: line.startswith("- [ ]"))
@@ -332,7 +339,7 @@ class GithubRepository:
 
         if _type == "py":
             self.workflow_ui.pp("running tests using pytest 🐍🧪")
-            os.system("python -m pytest src/tests")
+            os.system("pytest tests")
             self.workflow_ui.pp("checking that the system is type safe 👩‍🚀 🐍")
             os.system("python -m mypy src")
 

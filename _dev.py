@@ -34,7 +34,11 @@ if __name__ == "__main__":
                 elif sys.argv[2] == "init":
                     git.push_new_repo_to_github(sys.argv)
                 elif sys.argv[2] == "merge":
-                    git.integrate_new_branch()
+                    try:
+                        git.integrate_new_branch(sys.argv[3])
+                    except:
+                        git.integrate_new_branch()
+                        
                 elif sys.argv[2] == "gitignore":
                     git.generate_gitignore()
                 else:
@@ -52,7 +56,11 @@ if __name__ == "__main__":
                     git.create_issue(sys.argv[4], sys.argv[5])
 
                 elif sys.argv[3] == "read":
-                    git.read_issues()
+                    if len(sys.argv) >= 4:
+                        git.read_issues()
+                        # git.read_all_issues_on_github()
+                    else:
+                        git.read_issues()
 
                 elif sys.argv[3] == "close":
                     # ["_dev.py","github","issue","close","from_val","to_val"]
@@ -226,11 +234,23 @@ if __name__ == "__main__":
 
         elif sys.argv[1] == "create-env":
             osi.create_a_virtualenvironment(sys.argv[2])
+        
+        elif sys.argv[1] == "i":
+            osi.install_package(*sys.argv[2:])
+        
+        elif sys.argv[1] == "setup-env":
+            osi.setup_venv(*sys.argv[2:])
+        
+        elif sys.argv[1] == "del-env":
+            osi.delete_virtualenvironment(*sys.argv[2:])
+
+        elif sys.argv[1] == "ci":
+            git.test_and_push_to_github(["_dev.py","git","t",*sys.argv[2:]])
 
         else:
             # if no domain is passed this will be pushed to github
             git.push_to_github(sys.argv)
-
+        
     else:
         with open(os.path.join(osi.gcu(), "Protocol", "jaguar", "commands.txt"), "r") as f:
             for line in f.readlines():

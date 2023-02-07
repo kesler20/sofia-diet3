@@ -4,6 +4,7 @@ import React, { useState } from "react";
 const Food = () => {
   const [food, setFood] = useState({
     name: "default",
+    vendor : "",
     protein: "1",
     calories: "1",
     cost: "1",
@@ -11,7 +12,7 @@ const Food = () => {
 
   const uploadData = async (bodyData) => {
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/food/CREATE`,
+      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/CREATE`,
       {
         method: "POST",
         body: bodyData,
@@ -66,6 +67,22 @@ const Food = () => {
               type="text"
               required
               onChange={(e) => handleCreateFood(e, "name")}
+            />
+            <div className="card__content__header">
+              <div className="card__content__badge">
+                <img
+                  src="https://uploads-ssl.webflow.com/612b579592e3bf93283444b6/612b69f61d22d5ca878550af_chevron-right.svg"
+                  loading="lazy"
+                  alt=""
+                  className="image-2-copy-copy"
+                />
+              </div>
+              <p>Vendor ?</p>
+            </div>
+            <input
+              type="text"
+              required
+              onChange={(e) => handleCreateFood(e, "vendor")}
             />
             <div className="card__content__header">
               <div className="card__content__badge">

@@ -1,9 +1,16 @@
+from pathlib import Path
+from src.jaguar_backend.file import File
 import re
 from typing import List, Any, Union, Dict, Optional, Tuple
 import os
 import shutil
 import sys
 from src.jaguar_backend._base import WorkflowRepresentation
+
+
+def _print(msg):
+    print(f"\n {msg} \n")
+
 
 class OperatingSystemInterface:
     """OperatingSystemInterface is a class
@@ -46,12 +53,58 @@ class OperatingSystemInterface:
 
     def create_a_virtualenvironment(self, venv: str):
         """create_a_virtualenvironment"""
-        
-        os.system("pip freeze > requirements.txt")
-        os.system("pip install virtualenv")
-        os.system(f"virtualenv {venv}")
-        os.system(f"source {venv}/bin/activate")
-        os.system("pip install -r requirements.txt") 
+
+        self.workflow_ui.pp(f"creatin a new virtual environment {venv} 🐍✨")
+        _print(f"conda create -n {venv}")
+        os.system(f"conda create -n {venv}")
+        _print("make sure that you change the vscode virtual environment to the newly created one ❗❗❗")
+        _print("make sure you have installed jaguar_backend by going to the jaguar_backend and activate the new environment, after run pip install -e . ❗❗❗")
+        _print("if you have an existing requirements.txt and requirements_dev.txt file then run: 'python _dev.py setup-env <env-name>' ❗❗❗")
+    
+    def setup_venv(self, venv: str):
+        _print(f"pip install -r requirements.txt")
+        os.system(f"pip install -r requirements.txt")
+        _print(f"pip install -r requirements_dev.txt")
+        os.system(f"pip install -r requirements_dev.txt")
+
+    def delete_virtualenvironment(self, venv: str):
+        _print(venv)
+        self.workflow_ui.pp(f"deleting the {venv} virtual environment ❌")
+        _print(f"conda env remove --name {venv}")
+        os.system(f"conda env remove --name {venv}")
+        _print(f"conda env list")
+        os.system(f"conda env list")
+
+    def install_package(self, package: str):
+        self.workflow_ui.pp(f"installing... {package} ⚙️")
+        _print(f"pip install {package}")
+        os.system(f"pip install {package}")
+        _print(f"pip freeze > requirements.txt")
+        os.system(f"pip freeze > requirements.txt")
+        _print(f"conda list")
+        os.system(f"conda list")
+        _print(f"pip show {package}")
+        os.system(f"pip show {package}")
+        # update the pipfile and the setup.cfg files
+        # get the version of the file
+        package_version = list(filter(lambda line: line.find(package) != -1, File(Path("requirements.txt")).readlines())
+                               )[0].replace(package, "").replace("\n", "")
+        pip_file = [line.replace("\n", "") for line in File(Path("Pipfile")).readlines()]
+        os.remove("Pipfile")
+        for line in pip_file:
+            File(Path("Pipfile")).append(line)
+            if line.find("[packages]") != -1:
+                self.workflow_ui.pp(f'added a new line to the Pipfile -> 👿 {package} = "{package_version.replace(">=","==")}"',)
+                File(Path("Pipfile")).append(f'{package} = "{package_version.replace(">=","==")}"')
+
+        setup_cfg = [line.replace("\n", "") for line in File(Path("setup.cfg")).readlines()]
+        os.remove("setup.cfg")
+        for line in setup_cfg:
+            File(Path("setup.cfg")).append(line)
+            if line.find("install_requires =") != -1:
+                package_version = package_version.replace("==", ">=")
+                self.workflow_ui.pp(f'added a new line to the setup.cfg -> ⚙️  {package}{package_version}',)
+                File(Path("setup.cfg")).append(f'    {package}{package_version}')
 
     def copy_file_from_jaguar(self, file: str, source_folder: Optional[str] = "jaguar_backend") -> None:
         """The folder that you are currently working on will be used as destination file
@@ -76,12 +129,12 @@ class OperatingSystemInterface:
             r"\{}".format(source_folder))[0], source_folder, file)
         destination = os.path.join(self.directory, file)
 
-        print(r'''
+        _print(r'''
         copying {} 
         ---> into 
         {}
         '''.format(source, destination))
-        print(os.getcwd())
+        _print(os.getcwd())
         shutil.copy(source, destination)
 
     def copy_folder_from_jaguar(self, folder: str, source_folder: Optional[str] = os.path.join("protocol", "jaguar_backend")) -> None:
@@ -107,24 +160,24 @@ class OperatingSystemInterface:
             r"\{}".format(source_folder))[0], source_folder, folder)
         destination = os.path.join(self.directory, folder)
 
-        print(r'''
+        _print(r'''
         copying {} 
         ---> into 
         {}
         '''.format(source, destination))
-        print(os.getcwd())
+        _print(os.getcwd())
         try:
             shutil.copytree(source, destination)
         except FileExistsError as err:
-            print(err)
-            print("copying the folder again...⚙️")
+            _print(err)
+            _print("copying the folder again...⚙️")
             shutil.rmtree(destination)
             shutil.copytree(source, destination)
 
     def delete_folder(self, folder: str):
         root_dir = os.path.abspath(__file__.split("protocol")[0])
         folder = os.path.join(root_dir, "protocol", folder)
-        print("deleting the following folder 🗑️", folder)
+        _print("deleting the following folder 🗑️", folder)
         os.system(f"rmdir /S /Q {folder}")
 
     def copy_folder(self, source_folder: str, destination_folder: str = None) -> None:
