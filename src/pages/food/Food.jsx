@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const Food = () => {
   const [food, setFood] = useState({
     name: "default",
-    vendor : "",
+    vendor: "",
     protein: "1",
     calories: "1",
     cost: "1",
@@ -12,7 +12,7 @@ const Food = () => {
 
   const uploadData = async (bodyData) => {
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/CREATE`,
+      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/food/CREATE`,
       {
         method: "POST",
         body: bodyData,

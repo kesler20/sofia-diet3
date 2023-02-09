@@ -11,7 +11,7 @@ const Meal = () => {
 
   useEffect(() => {
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/READ`
+      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/food/READ`
     );
 
     response
@@ -35,7 +35,7 @@ const Meal = () => {
     });
     console.log(dataToPush);
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/meal/CREATE`,
+      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/meal/CREATE`,
       { method: "POST", body: JSON.stringify(dataToPush) }
     );
     processPromise(response, console.log);
@@ -83,7 +83,7 @@ const Meal = () => {
 
   const deleteFood = (foodID) => {
     const response = fetch(
-      `${process.env.REACT_APP_BACKEND_URL_DEV}/sofia-diet/food/DELETE`,
+      `${process.env.REACT_APP_BACKEND_URL_PROD}/sofia-diet/food/DELETE`,
       { method: "DELETE", body: JSON.stringify(foodID) }
     );
     processPromise(response, console.log);
