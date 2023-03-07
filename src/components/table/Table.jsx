@@ -15,13 +15,18 @@ export const Table = styled.table`
   td,
   th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 5px;
+  }
+
+  tr {
+    text-align: center;
+    font-size: 0.9rem;
   }
 
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
-
+  
   tr:hover {
     background-color: #ddd;
   }
